@@ -15,5 +15,5 @@ CREATE TABLE posts (
     created_on TEXT DEFAULT (datetime('now')),
     status INTEGER,
     author_id INTEGER,
-    FOREIGN KEY(author_id) REFERENCES users(id) NOT NULL
+    FOREIGN KEY(author_id) REFERENCES users(id)
 );
