@@ -2,7 +2,7 @@ import sqlite3
 
 from flask import Flask, g, render_template
 
-from db import init_db
+from db import init_db, fetch_list
 
 
 DATABASE = 'autocms.sqlite'
@@ -32,7 +32,9 @@ def index():
 
 @app.route('/posts')
 def list_posts():
-    return render_template('posts.html')
+    query = 'SELECT * FROM posts WHERE status=1'
+    posts = fetch_list(get_db(), query)
+    return render_template('posts.html', posts=posts)
 
 
 @app.route('/admin/posts')

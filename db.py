@@ -21,3 +21,10 @@ def init_db(app):
             with app.open_resource('schema.sql', mode='r') as f:
                 cursor.executescript(f.read())
             conn.commit()
+
+
+def fetch_list(db, query):
+    cursor = db.cursor()
+    cursor.execute(query)
+    data = cursor.fetchall()
+    return data
