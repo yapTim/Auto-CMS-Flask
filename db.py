@@ -1,6 +1,11 @@
 import sqlite3
 
 
+# Constants
+DRAFT = 0
+PUBLISHED = 1
+
+
 def init_db(app):
     """ Initialize tables if they do not exist """
     query = '''
