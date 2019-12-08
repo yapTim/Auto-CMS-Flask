@@ -1,19 +1,18 @@
 CREATE TABLE users (
     id INTEGER PRIMARY KEY,
-    first_name TEXT,
-    last_name TEXT,
-    password TEXT,
-    username TEXT
+    email TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    username TEXT NOT NULL UNIQUE
 );
 
 CREATE TABLE posts (
     id INTEGER PRIMARY KEY,
-    title TEXT,
-    slug TEXT NOT NULL,
-    updated_on TEXT DEFAULT (datetime('now')),
-    content TEXT,
+    author_id INTEGER NOT NULL,
+    content TEXT NOT NULL,
     created_on TEXT DEFAULT (datetime('now')),
-    status INTEGER,
-    author_id INTEGER,
+    slug TEXT NOT NULL UNIQUE,
+    status INTEGER DEFAULT 0,
+    title TEXT NOT NULL,
+    updated_on TEXT DEFAULT (datetime('now')),
     FOREIGN KEY(author_id) REFERENCES users(id)
 );
