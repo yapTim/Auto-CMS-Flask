@@ -5,16 +5,16 @@ from flask import Flask, g, render_template
 from db import init_db
 
 
-DATABASE = 'autocms.db'
+DATABASE = 'autocms.sqlite'
 app = Flask(__name__)
 
 
 # Add DB connection code
 def get_db():
-    print('hello')
     db = getattr(g, '_database', None)
     if not db:
         db = g._database = sqlite3.connect(DATABASE)
+        db.row_factory = sqlite3.Row
     return db
 
 
@@ -28,6 +28,11 @@ def close_connection(exception):
 @app.route('/')
 def index():
     return render_template('index.html')
+
+
+@app.route('/posts')
+def list_posts():
+    return render_template('posts.html')
 
 
 @app.route('/admin/posts')

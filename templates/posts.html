@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block body %}
+
+<div class="container">
+    <h1>News and Information</h1>
+    <div class="row">
+        <!-- Post Entries Column -->
+        <div class="col-md-8 mt-3 left">
+            {# {% for post in post_list %} #}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">Title</h2>
+                    <p class="card-text text-muted h6">Author | Created On</p>
+                    <p class="card-text">Content</p>
+                    <a href="#" class="btn btn-primary">Read More &rarr;</a>
+                </div>
+            </div>
+            {# {% endfor %} #}
+        </div>
+    </div>
+</div>
+{%endblock%}
