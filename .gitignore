@@ -112,6 +112,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-*.db
+*.sqlite
 
 # End of https://www.gitignore.io/api/flask
