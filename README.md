@@ -25,11 +25,6 @@ $ cd auto-cms-flask
 $ pipenv install
 ```
 
-Add `FLASK_APP` environment variable
-```sh
-$ export FLASK_APP=auto_cms.py
-```
-
 Run server
 ```sh
 $ pipenv run flask run
