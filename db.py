@@ -23,10 +23,21 @@ def init_db(app):
             conn.commit()
 
 
-def fetch_list(db, query):
+def fetch(db, query):
     cursor = db.cursor()
     cursor.execute(query)
+    return cursor
+
+
+def fetch_list(db, query):
+    cursor = fetch(db, query)
     data = cursor.fetchall()
+    return data
+
+
+def fetch_detail(db, query):
+    cursor = fetch(db, query)
+    data = cursor.fetchone()
     return data
 
 
