@@ -1,4 +1,5 @@
 import sqlite3
+from datetime import datetime
 
 from flask import Flask, g, render_template
 
@@ -54,6 +55,15 @@ def list_vehicles():
 @app.route('/admin/posts')
 def post_admin():
     return render_template('posts_admin.html')
+
+
+# Create Jinja filters to format datetime from db.
+def format_date(date_string):
+    date = datetime.strptime(date_string, '%Y-%m-%d %H:%M:%S')
+    return date.strftime('%b. %d, %Y %I:%M %p')
+
+
+app.jinja_env.filters['dateformat'] = format_date
 
 
 # Initialize database
