@@ -23,14 +23,14 @@ Install dependencies
 ```sh
 $ cd auto-cms-flask
 $ pipenv install
-# on Windows
+# or
 $ python -m pipenv install
 ```
 
 Run server
 ```sh
 $ pipenv run flask run
-# on Windows
+# or
 $ python -m pipenv run flask run
 ```
 
@@ -40,3 +40,6 @@ http://flask.palletsprojects.com/en/1.1.x/patterns/sqlite3/#sqlite3
 https://codeburst.io/jinja-2-explained-in-5-minutes-88548486834e
 https://datatofish.com/create-database-python-using-sqlite3/
 https://www.sqlite.org/lang_datefunc.html
+https://www.journaldev.com/23365/python-string-to-datetime-strptime
+https://www.programiz.com/python-programming/datetime/strftime
+https://stackoverflow.com/questions/4830535/how-do-i-format-a-date-in-jinja2
