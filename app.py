@@ -3,7 +3,7 @@ from datetime import datetime
 
 from flask import Flask, g, render_template
 
-from db import init_db, fetch_list
+from db import init_db, fetch_detail, fetch_list
 
 
 DATABASE = 'autocms.sqlite'
@@ -33,7 +33,7 @@ def index():
 
 
 @app.route('/posts')
-def list_posts():
+def posts_list():
     query = '''
         SELECT
             posts.*,
@@ -45,6 +45,22 @@ def list_posts():
     '''
     posts = fetch_list(get_db(), query)
     return render_template('posts.html', posts=posts)
+
+
+@app.route('/posts/<post_id>')
+def post_detail(post_id):
+    print(post_id)
+    query = f'''
+        SELECT
+            posts.*,
+            users.first_name || ' ' || users.last_name AS author
+        FROM
+            posts INNER JOIN users ON posts.author_id = users.id
+        WHERE
+            posts.id = {post_id}
+    '''
+    post = fetch_detail(get_db(), query)
+    return render_template('post.html', post=post)
 
 
 @app.route('/vehicles')
