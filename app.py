@@ -33,7 +33,15 @@ def index():
 
 @app.route('/posts')
 def list_posts():
-    query = 'SELECT * FROM posts WHERE status=1'
+    query = '''
+        SELECT
+            posts.*,
+            users.first_name || ' ' || users.last_name AS author
+        FROM
+            posts INNER JOIN users ON posts.author_id = users.id
+        WHERE
+            status = 1
+    '''
     posts = fetch_list(get_db(), query)
     return render_template('posts.html', posts=posts)
 

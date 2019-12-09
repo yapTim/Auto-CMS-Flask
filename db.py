@@ -34,6 +34,14 @@ def fetch_list(db, query):
 # conn.row_factory = sqlite3.Row
 # cur = conn.cursor()
 
-# cur.execute('SELECT posts.*, users.* FROM posts INNER JOIN users ON posts.author_id = users.id')
+# cur.execute('''
+#     SELECT
+#         posts.*,
+#         users.first_name || ' ' || users.last_name AS author
+#     FROM
+#         posts INNER JOIN users ON posts.author_id = users.id
+#     WHERE
+#         status=1
+# ''')
 # x = cur.fetchone()
 # print(dict(x))
