@@ -9,6 +9,7 @@ DATABASE = 'autocms.sqlite'
 app = Flask(__name__)
 
 
+# This is where most of the procedural code lies
 # Add DB connection code
 def get_db():
     db = getattr(g, '_database', None)
@@ -35,6 +36,11 @@ def list_posts():
     query = 'SELECT * FROM posts WHERE status=1'
     posts = fetch_list(get_db(), query)
     return render_template('posts.html', posts=posts)
+
+
+@app.route('/vehicles')
+def list_vehicles():
+    return render_template('vehicles.html')
 
 
 @app.route('/admin/posts')

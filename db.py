@@ -28,3 +28,12 @@ def fetch_list(db, query):
     cursor.execute(query)
     data = cursor.fetchall()
     return data
+
+
+# conn = sqlite3.connect('autocms.sqlite')
+# conn.row_factory = sqlite3.Row
+# cur = conn.cursor()
+
+# cur.execute('SELECT posts.*, users.* FROM posts INNER JOIN users ON posts.author_id = users.id')
+# x = cur.fetchone()
+# print(dict(x))
