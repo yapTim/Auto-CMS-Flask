@@ -1,7 +1,7 @@
 import sqlite3
 from datetime import datetime
 
-from flask import Flask, g, render_template
+from flask import Flask, g, render_template, request
 
 from db import init_db, fetch_detail, fetch_list
 
@@ -66,6 +66,12 @@ def post_detail(post_id):
 @app.route('/vehicles')
 def list_vehicles():
     return render_template('vehicles.html')
+
+
+@app.route('/admin/login')
+def admin_login():
+    if request.method == 'GET':
+        return render_template('admin.html')
 
 
 @app.route('/admin/posts')
