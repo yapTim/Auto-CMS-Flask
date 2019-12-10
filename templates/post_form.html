@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div class="container">
+  <div class="col-md-8 mt-3 left">
+    <div class="card mb-4">
+      <div class="card-body">
+        <h3 class="card-title">Add new Post</h3>
+        <form action="" method="POST">
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              name="title"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="slug">Slug</label>
+            <input
+              type="text"
+              class="form-control"
+              id="slug"
+              name="slug"
+              required/>
+          </div>
+          <div class="form-group">
+            <label for="content">Content</label>
+            <textarea
+              class="form-control"
+              id="content"
+              rows="7"
+              name="content"
+              required
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="status">Status</label>
+            <select
+              class="form-control"
+              id="status"
+              name="status"
+              required
+            >
+              <option value="0">Draft</option>
+              <option value="1">Publish</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-success float-right">Add</button>
+        </form>
+        <a href="{{ url_for('admin_index') }}">
+          <button class="btn btn-secondary">Back</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

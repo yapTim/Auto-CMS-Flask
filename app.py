@@ -109,9 +109,14 @@ def admin_login():
         return redirect(url_for('admin_index'))
 
 
-@app.route('/admin/posts')
-def post_admin():
-    return render_template('posts_admin.html')
+@app.route('/admin/posts/create', methods=['GET', 'POST'])
+def admin_add_post():
+    if request.method == 'GET':
+        return render_template('post_form.html')
+
+    if request.method == 'POST':
+        print(request.form)
+        return render_template('post_form.html')
 
 
 @app.route('/admin/logout')

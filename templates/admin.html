@@ -5,7 +5,9 @@
   <div class="row">
     <h1 class="col-md-8">Welcome, {{ session['username'] }}!</h1>
     <div class="col-md-4">
-      <a href="{{ url_for('admin_logout') }}"><button class="btn btn-danger btn-sm float-right">Logout</button></a>
+      <a href="{{ url_for('admin_logout') }}">
+        <button class="btn btn-danger btn-sm float-right">Logout</button>
+      </a>
     </div>
   </div>
 
@@ -16,7 +18,9 @@
           <div class="row">
             <h3 class="card-title col-md-4">Posts</h3>
             <div class="col-md-8">
-              <button class="btn btn-success btn-sm float-right">Add</button>
+              <a href="{{ url_for('admin_add_post') }}">
+                <button class="btn btn-success btn-sm float-right">Add</button>
+              </a>
             </div>
           </div>
           <a href="#" class="instance">My First Post!</a>
