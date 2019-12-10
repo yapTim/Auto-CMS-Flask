@@ -73,6 +73,8 @@ def list_vehicles():
 
 @app.route('/admin')
 def admin_index():
+    if not session['username'] or not session['user_id']:
+        return redirect(url_for('admin_login'))
     return render_template('admin.html')
 
 
@@ -110,6 +112,13 @@ def admin_login():
 @app.route('/admin/posts')
 def post_admin():
     return render_template('posts_admin.html')
+
+
+@app.route('/admin/logout')
+def admin_logout():
+    session.pop('username', None)
+    session.pop('user_id', None)
+    return redirect(url_for('index'))
 
 
 # Create Jinja filters to format datetime from db.
