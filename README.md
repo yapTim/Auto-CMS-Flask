@@ -34,6 +34,11 @@ $ pipenv run flask run
 $ python -m pipenv run flask run
 ```
 
+### Admin Credentials
+The default admin credentials the come with this app are:
+Username: `admin`
+Password: `pass`
+
 ### References
 - http://flask.palletsprojects.com/en/1.1.x/quickstart/
 - http://flask.palletsprojects.com/en/1.1.x/patterns/sqlite3/#sqlite3

@@ -18,3 +18,8 @@ CREATE TABLE posts (
     updated_on TEXT DEFAULT (datetime('now')),
     FOREIGN KEY(author_id) REFERENCES users(id)
 );
+
+INSERT INTO
+    users(email, first_name, last_name, password, username)
+VALUES
+    ('test@admin.com', 'Test', 'Admin', 'pass', 'admin');
