@@ -73,7 +73,7 @@ def list_vehicles():
 
 @app.route('/admin')
 def admin_index():
-    if not session['username'] or not session['user_id']:
+    if not session.get('username', None) or not session.get('user_id', None):
         return redirect(url_for('admin_login'))
     return render_template('admin.html')
 
