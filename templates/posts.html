@@ -2,22 +2,22 @@
 {% block body %}
 
 <div class="container">
-    <h1>News and Information</h1>
-    <div class="row">
-        <!-- Post Entries Column -->
-        <div class="col-md-8 mt-3 left">
-            {% for post in posts %}
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h2 class="card-title">{{ post['title'] }}</h2>
-                    <p class="card-text text-muted h6">{{ post['author'] }} | {{ post['created_on']|dateformat }}</p>
-                    <p class="card-text">{{ post['content'] }}</p>
-                    <a href="{{ url_for('post_detail', post_id=post['id']) }}" class="btn btn-primary">Read More &rarr;</a>
-                </div>
-            </div>
-            {% endfor %}
+  <h1>News and Information</h1>
+  <div class="row">
+    <!-- Post Entries Column -->
+    <div class="col-md-8 mt-3 left">
+      {% for post in posts %}
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="card-title">{{ post['title'] }}</h2>
+          <p class="card-text text-muted h6">{{ post['author'] }} | {{ post['created_on']|dateformat }}</p>
+          <p class="card-text">{{ post['content'][0:200] }} {% if post['content']|length >= 200 %} <span>...</span> {% endif %}</p>
+          <a href="{{ url_for('post_detail', post_id=post['id']) }}" class="btn btn-primary">Read More &rarr;</a>
         </div>
+      </div>
+      {% endfor %}
     </div>
+  </div>
 </div>
 
 {% endblock %}
