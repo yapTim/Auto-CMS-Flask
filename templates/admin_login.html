@@ -12,21 +12,26 @@
               <label for="username">Username</label>
               <input
                 type="text"
-                class="form-control"
+                class="form-control {{ 'is-invalid' if error else '' }}"
                 id="username"
                 placeholder="Username"
                 name="username"
               />
+            </div>
+            <div class="form-group">
               <label for="password">Password</label>
               <input
                 type="password"
-                class="form-control"
+                class="form-control {{ 'is-invalid' if error else '' }}"
                 id="password"
                 placeholder="Password"
                 name="password"
               />
-              <br />
-              <button type="submit" class="btn btn-primary">Log In</button>
+              <div class="invalid-feedback">
+                {{ error if error else '' }}
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Log In</button>
             </div>
           </form>
         </div>
