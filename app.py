@@ -68,10 +68,31 @@ def list_vehicles():
     return render_template('vehicles.html')
 
 
-@app.route('/admin/login')
+@app.route('/admin/login', methods=['GET', 'POST'])
 def admin_login():
     if request.method == 'GET':
-        return render_template('admin.html')
+        return render_template('admin_login.html')
+
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+        query = f'''
+            SELECT
+                username
+            FROM
+                users
+            WHERE
+                username='{username}' AND password='{password}'
+        '''
+
+        username = fetch_detail(get_db(), query)
+
+        if not username:
+            return render_template(
+                'admin_login.html', error='Wrong Credentials!')
+
+        return render_template('index.html')
 
 
 @app.route('/admin/posts')
