@@ -48,3 +48,5 @@ Password: `pass`
 - https://www.journaldev.com/23365/python-string-to-datetime-strptime
 - https://www.programiz.com/python-programming/datetime/strftime
 - https://stackoverflow.com/questions/4830535/how-do-i-format-a-date-in-jinja2
+- https://getbootstrap.com/docs/4.4/getting-started/introduction/
+- https://jinja.palletsprojects.com/en/2.10.x/templates/
