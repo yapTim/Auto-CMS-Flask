@@ -1,13 +1,17 @@
 import sqlite3
 from datetime import datetime
 
-from flask import Flask, g, render_template, request
+from flask import (
+    Flask, g, render_template, redirect, request, session, url_for)
 
 from db import init_db, fetch_detail, fetch_list
 
 
 DATABASE = 'autocms.sqlite'
 app = Flask(__name__)
+
+
+app.secret_key = 'not_so-$3kret=key'
 
 
 # This is where most of the procedural code lies
@@ -49,7 +53,6 @@ def posts_list():
 
 @app.route('/posts/<post_id>')
 def post_detail(post_id):
-    print(post_id)
     query = f'''
         SELECT
             posts.*,
@@ -68,6 +71,11 @@ def list_vehicles():
     return render_template('vehicles.html')
 
 
+@app.route('/admin')
+def admin_index():
+    return render_template('admin.html')
+
+
 @app.route('/admin/login', methods=['GET', 'POST'])
 def admin_login():
     if request.method == 'GET':
@@ -79,6 +87,7 @@ def admin_login():
 
         query = f'''
             SELECT
+                id,
                 username
             FROM
                 users
@@ -86,13 +95,16 @@ def admin_login():
                 username='{username}' AND password='{password}'
         '''
 
-        username = fetch_detail(get_db(), query)
+        user = fetch_detail(get_db(), query)
 
-        if not username:
+        if not user:
             return render_template(
                 'admin_login.html', error='Wrong Credentials!')
 
-        return render_template('index.html')
+        session['username'] = user['username']
+        session['user_id'] = user['id']
+
+        return redirect(url_for('admin_index'))
 
 
 @app.route('/admin/posts')
