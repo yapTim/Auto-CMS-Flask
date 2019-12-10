@@ -6,6 +6,11 @@
     <div class="card mb-4">
       <div class="card-body">
         <h3 class="card-title">Add new Post</h3>
+        {% if created %}
+        <div class="alert alert-success" role="alert">
+          Post successfully created!
+        </div>
+        {% endif %}
         <form action="" method="POST">
           <div class="form-group">
             <label for="title">Title</label>

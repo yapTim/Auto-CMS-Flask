@@ -23,22 +23,27 @@ def init_db(app):
             conn.commit()
 
 
-def fetch(db, query):
+def execute_query(db, query):
     cursor = db.cursor()
     cursor.execute(query)
     return cursor
 
 
 def fetch_list(db, query):
-    cursor = fetch(db, query)
+    cursor = execute_query(db, query)
     data = cursor.fetchall()
     return data
 
 
 def fetch_detail(db, query):
-    cursor = fetch(db, query)
+    cursor = execute_query(db, query)
     data = cursor.fetchone()
     return data
+
+
+def commit_data(db, query):
+    execute_query(db, query)
+    db.commit()
 
 
 # conn = sqlite3.connect('autocms.sqlite')

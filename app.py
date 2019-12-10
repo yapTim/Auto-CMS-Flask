@@ -4,7 +4,7 @@ from datetime import datetime
 from flask import (
     Flask, g, render_template, redirect, request, session, url_for)
 
-from db import init_db, fetch_detail, fetch_list
+from db import commit_data, fetch_detail, fetch_list, init_db
 
 
 DATABASE = 'autocms.sqlite'
@@ -115,8 +115,23 @@ def admin_add_post():
         return render_template('post_form.html')
 
     if request.method == 'POST':
-        print(request.form)
-        return render_template('post_form.html')
+        data = request.form
+
+        title = data.get('title').strip()
+        slug = data.get('slug').strip()
+        content = data.get('content').strip()
+        status = int(data.get('status'))
+        author_id = session.get('user_id')
+
+        query = f'''
+            INSERT INTO
+                posts(content, slug, status, title, author_id)
+            VALUES
+                ('{content}', '{slug}', {status}, '{title}', {author_id})
+        '''
+
+        commit_data(get_db(), query)
+        return render_template('post_form.html', created=True)
 
 
 @app.route('/admin/logout')
