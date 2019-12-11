@@ -80,33 +80,51 @@ def vehicles_list():
     '''
     car_types = fetch_list(get_db(), query)
 
-    return render_template('vehicles.html', car_types=car_types, **kwargs)
+    return render_template(
+        'vehicles_index.html', car_types=car_types, **kwargs)
+
+
+def fetch_models(table, column, value):
+    query = f'''
+        SELECT DISTINCT model FROM {table} WHERE {column} = {value}
+    '''
+    models = fetch_list(get_db(), query)
+
+    return [model['model'] for model in models]
+
+
+def sort_vehicles_by_model(models, sub_category, table, column, value):
+    query = f'''
+        SELECT
+            id, price, model, {sub_category}
+        FROM
+            {table}
+        WHERE {column} = {value}
+    '''
+    vehicle_list = fetch_list(get_db(), query)
+
+    vehicles = dict((model, []) for model in models)
+    for vehicle in vehicle_list:
+        vehicles[vehicle['model']].append(vehicle)
+
+    return vehicles
 
 
 @app.route('/vehicles/cars/')
 def cars_list():
     car_type = request.args.get('car_type')
 
-    query = f'''
-        SELECT DISTINCT model FROM cars WHERE car_type = {car_type}
-    '''
-    car_models = fetch_list(get_db(), query)
-    car_models = [model['model'] for model in car_models]
+    car_models = fetch_models('cars', 'car_type', car_type)
+    print(car_models)
+    cars = sort_vehicles_by_model(
+        car_models, 'series', 'cars', 'car_type', car_type)
 
-    query = f'''
-        SELECT id, series, price, model FROM cars WHERE car_type = {car_type}
-    '''
-    cars_list = fetch_list(get_db(), query)
-
-    cars = dict((model, []) for model in car_models)
-    for car in cars_list:
-        cars[car['model']].append(car)
-
-    return render_template('cars.html', car_models=car_models, cars=cars)
+    return render_template(
+        'vehicles.html', vehicle_type='Cars', models=car_models, vehicles=cars)
 
 
-@app.route('/vehicles/cars/<car_id>')
-def car_detail(car_id):
+@app.route('/vehicles/cars/<id>')
+def car_detail(id):
     kwargs = {
         'transmission_types': TRANSMISSION_TYPES,
         'fuel_types': FUEL_TYPES
@@ -118,10 +136,24 @@ def car_detail(car_id):
         FROM
             cars
         WHERE
-            id = {car_id}
+            id = {id}
     '''
     car = fetch_detail(get_db(), query)
-    return render_template('car.html', car=car, **kwargs)
+    return render_template('vehicle.html', vehicle=car, **kwargs)
+
+
+@app.route('/vehicles/trucks/')
+def trucks_list():
+    weight_category = request.args.get('weight_category')
+
+    query = f'''
+
+    '''
+
+
+@app.route('/vehicles/trucks/<truck_id>')
+def truck_detail(truck_id):
+    pass
 
 
 @app.route('/admin')

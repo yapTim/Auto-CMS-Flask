@@ -1,29 +1,30 @@
 {% extends 'base.html' %}
 {% block body %}
 
-<div class="container">
+{% if vehicle_type == 'Cars' %}
+  {% set url_name = 'car_detail' %}
+{% else %}
+  {% set url_name = 'truck_detail' %}
+{% endif %}
 
-  <h1>Cars</h1>
-  <div class="row">
-    {% for type in car_types %}
+<div class="container">
+  <h1>{{ vehicle_type }}</h1>
+  {% for model in models %}
+    <div class="row">
       <div class="col-md-8 mt-3 left">
         <div class="card mb-4">
           <div class="card-body">
-            <h2 class="card-title">
-              <a href="{{ url_for('cars_list', car_type=type['car_type']) }}">
-                {{ car_type_types[type['car_type']][1] }}
+            <h3 class="card-title">{{ model }}</h3>
+            {% for vehicle in vehicles[model] %}
+              <a href="{{ url_for(url_name, id=vehicle['id']) }}">
+                <h6>{{ vehicle['series'] }}</h6>
               </a>
-            </h2>
+              <p>PHP {{ '%0.2f'|format(vehicle['price']) }}</p>
+            {% endfor %}
           </div>
         </div>
       </div>
-    {% endfor %}
-  </div>
-
-  <h1>Trucks</h1>
-  <div class="row">
-  </div>
-
+    </div>
+  {% endfor %}
 </div>
-
 {% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div class="container">
+
+  <h1>Cars</h1>
+  <div class="row">
+    {% for type in car_types %}
+      <div class="col-md-8 mt-3 left">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="card-title">
+              <a href="{{ url_for('cars_list', car_type=type['car_type']) }}">
+                {{ car_type_types[type['car_type']][1] }}
+              </a>
+            </h2>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <h1>Trucks</h1>
+  <div class="row">
+  </div>
+
+</div>
+
+{% endblock %}
