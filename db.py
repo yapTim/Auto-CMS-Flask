@@ -2,8 +2,24 @@ import sqlite3
 
 
 # Constants
+
+# Posts `status`
 DRAFT = 0
 PUBLISHED = 1
+STATUS_TYPES = (
+    (DRAFT, 'Draft'),
+    (PUBLISHED, 'Published')
+)
+
+# Cars `car_type`
+SEDAN = 0
+SUV = 1
+PICKUP = 2
+CAR_TYPES = (
+    (SEDAN, 'Sedan'),
+    (SUV, 'SUV'),
+    (PICKUP, 'Pickup')
+)
 
 
 def init_db(app):
