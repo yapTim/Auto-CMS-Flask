@@ -105,6 +105,25 @@ def cars_list():
     return render_template('cars.html', car_models=car_models, cars=cars)
 
 
+@app.route('/vehicles/cars/<car_id>')
+def car_detail(car_id):
+    kwargs = {
+        'transmission_types': TRANSMISSION_TYPES,
+        'fuel_types': FUEL_TYPES
+    }
+
+    query = f'''
+        SELECT
+            car_type, description, fuel, model, price, series, transmission
+        FROM
+            cars
+        WHERE
+            id = {car_id}
+    '''
+    car = fetch_detail(get_db(), query)
+    return render_template('car.html', car=car, **kwargs)
+
+
 @app.route('/admin')
 def admin_index():
     if not session.get('username', None) or not session.get('user_id', None):

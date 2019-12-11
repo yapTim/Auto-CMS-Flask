@@ -10,7 +10,7 @@
           <div class="card-body">
             <h3 class="card-title">{{ model }}</h3>
             {% for car in cars[model] %}
-              <a href="{{  }}">
+              <a href="{{ url_for('car_detail', car_id=car['id']) }}">
                 <h6>{{ car['series'] }}</h6>
               </a>
               <p>PHP {{ '%0.2f'|format(car['price']) }}</p>
