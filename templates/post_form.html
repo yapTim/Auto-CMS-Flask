@@ -11,7 +11,7 @@
           Post successfully created!
         </div>
         {% endif %}
-        <form action="" method="POST">
+        <form action="{{ url_for('admin_add_post') }}" method="POST">
           <div class="form-group">
             <label for="title">Title</label>
             <input
@@ -49,8 +49,9 @@
               name="status"
               required
             >
-              <option value="0">Draft</option>
-              <option value="1">Publish</option>
+              {% for status in post_status_types %}
+                <option value="{{ status[0] }}">{{ status[1] }}</option>
+              {% endfor %}a
             </select>
           </div>
           <button type="submit" class="btn btn-success float-right">Add</button>

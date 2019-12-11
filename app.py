@@ -6,7 +6,7 @@ from flask import (
 
 from db import (
     commit_data, fetch_detail, fetch_list, init_db, CAR_STATUS_TYPES,
-    CAR_TYPE_TYPES, FUEL_TYPES, TRANSMISSION_TYPES)
+    CAR_TYPE_TYPES, FUEL_TYPES, POST_STATUS_TYPES, TRANSMISSION_TYPES)
 
 
 DATABASE = 'autocms.sqlite'
@@ -118,8 +118,12 @@ def admin_login():
 
 @app.route('/admin/posts/create', methods=['GET', 'POST'])
 def admin_add_post():
+    kwargs = {
+        'post_status_types': POST_STATUS_TYPES
+    }
+
     if request.method == 'GET':
-        return render_template('post_form.html')
+        return render_template('post_form.html', **kwargs)
 
     if request.method == 'POST':
         data = request.form
@@ -138,7 +142,7 @@ def admin_add_post():
         '''
 
         commit_data(get_db(), query)
-        return render_template('post_form.html', created=True)
+        return render_template('post_form.html', created=True, **kwargs)
 
 
 @app.route('/admin/cars/create')
