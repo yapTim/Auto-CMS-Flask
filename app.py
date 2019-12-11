@@ -147,7 +147,7 @@ def admin_add_post():
 
 @app.route('/admin/cars/create')
 def admin_add_car():
-    select_options = {
+    kwargs = {
         'car_status_types': CAR_STATUS_TYPES,
         'transmission_types': TRANSMISSION_TYPES,
         'fuel_types': FUEL_TYPES,
@@ -155,7 +155,7 @@ def admin_add_car():
     }
 
     if request.method == 'GET':
-        return render_template('car_form.html', select_options=select_options)
+        return render_template('car_form.html', **kwargs)
 
 
 @app.route('/admin/logout')
