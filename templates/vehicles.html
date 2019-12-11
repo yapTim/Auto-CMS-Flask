@@ -17,7 +17,17 @@
             <h3 class="card-title">{{ model }}</h3>
             {% for vehicle in vehicles[model] %}
               <a href="{{ url_for(url_name, id=vehicle['id']) }}">
-                <h6>{{ vehicle['series'] }}</h6>
+                {% if vehicle_type == 'Cars' %}
+                  <h6>{{ vehicle['series'] }}</h6>
+                {% else %}
+                  <h6>
+                    {{
+                      size_types[vehicle['size']][1] +
+                      ' ' +
+                      weight_category_types[request.args.get('weight_category')|int][2]
+                    }}
+                  </h6>
+                {% endif %}
               </a>
               <p>PHP {{ '%0.2f'|format(vehicle['price']) }}</p>
             {% endfor %}

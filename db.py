@@ -60,9 +60,9 @@ LIGHT_DUTY = 0
 MEDIUM_DUTY = 1
 HEAVY_DUTY = 2
 WEIGHT_CATEGORY_TYPES = (
-    (LIGHT_DUTY, 'Light-Duty', 150),
-    (MEDIUM_DUTY, 'Medium-Duty', 250),
-    (HEAVY_DUTY, 'Heavy-Duty', 350)
+    (LIGHT_DUTY, 'Light-Duty', '150'),
+    (MEDIUM_DUTY, 'Medium-Duty', '250'),
+    (HEAVY_DUTY, 'Heavy-Duty', '350')
 )
 
 

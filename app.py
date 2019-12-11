@@ -146,6 +146,10 @@ def car_detail(id):
 
 @app.route('/vehicles/trucks/')
 def trucks_list():
+    kwargs = {
+        'size_types': SIZE_TYPES,
+        'weight_category_types': WEIGHT_CATEGORY_TYPES
+    }
     weight_category = request.args.get('weight_category')
 
     truck_models = fetch_models('trucks', 'weight_category', weight_category)
@@ -153,12 +157,12 @@ def trucks_list():
         truck_models, 'size', 'trucks', 'weight_category', weight_category)
 
     return render_template(
-        'vehicles.html' vehicle_type='Trucks', models=truck_models,
-        vehicles=trucks)
+        'vehicles.html', vehicle_type='Trucks', models=truck_models,
+        vehicles=trucks, **kwargs)
 
 
-@app.route('/vehicles/trucks/<truck_id>')
-def truck_detail(truck_id):
+@app.route('/vehicles/trucks/<id>')
+def truck_detail(id):
     pass
 
 
