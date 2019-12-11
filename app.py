@@ -68,7 +68,12 @@ def post_detail(post_id):
 
 @app.route('/vehicles')
 def list_vehicles():
-    return render_template('vehicles.html')
+    query = f'''
+        SELECT DISTINCT car_type FROM cars
+    '''
+    car_types = fetch_list(get_db(), query)
+
+    return render_template('vehicles.html', car_types=car_types)
 
 
 @app.route('/admin')
