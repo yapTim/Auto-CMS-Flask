@@ -155,6 +155,42 @@ def admin_add_car():
         'car_type_types': CAR_TYPE_TYPES
     }
 
+    if request.method == 'POST':
+        data = request.form
+
+        model = data.get('model')
+        slug = data.get('slug')
+        description = data.get('description')
+        price = data.get('price')
+        status = data.get('status')
+        car_type = data.get('car_type')
+        series = data.get('series')
+        transmission = data.get('transmission')
+        fuel = data.get('fuel')
+
+        query = f'''
+            INSERT INTO
+                cars(
+                    car_type, description, fuel, model, price, series, slug,
+                    status, transmission
+                )
+            VALUES
+                (
+                    {car_type}, '{description}', {fuel}, '{model}', {price},
+                    '{series}', '{slug}'. {status}, {transmission}
+                );
+
+        '''
+
+        created = True
+        try:
+            commit_data(get_db(), query)
+        except Exception as e:
+            print(e)
+            created = False
+
+        return render_template('car_form.html', created=created, **kwargs)
+
     if request.method == 'GET':
         return render_template('car_form.html', **kwargs)
 
