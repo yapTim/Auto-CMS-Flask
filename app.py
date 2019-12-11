@@ -70,13 +70,17 @@ def post_detail(post_id):
 
 
 @app.route('/vehicles')
-def list_vehicles():
+def vehicles_list():
+    kwargs = {
+        'car_type_types': CAR_TYPE_TYPES
+    }
+
     query = '''
         SELECT DISTINCT car_type FROM cars
     '''
     car_types = fetch_list(get_db(), query)
 
-    return render_template('vehicles.html', car_types=car_types)
+    return render_template('vehicles.html', car_types=car_types, **kwargs)
 
 
 @app.route('/admin')

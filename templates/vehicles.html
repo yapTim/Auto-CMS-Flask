@@ -2,32 +2,28 @@
 {% block body %}
 
 <div class="container">
-    <h1>Cars</h1>
-    <div class="row">
-        <!-- Car Entries Column -->
-        {% for type in types %}
-            <div class="col-md-8 mt-3 left">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h2 class="card-title"><a href="{% url 'vehicle_list' model='car' category=type %}">{{type}}</a></h2>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-    <h1>Trucks</h1>
-    <div class = "row">
-        <!-- Truck Entries Column -->
-        {% for category in categories %}
-            <div class="col-md-8 mt-3 left">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h2 class="card-title"><a href="{% url 'vehicle_list' model='truck' category=category %}">{{category}} GVWR</a></h2>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
+
+  <h1>Cars</h1>
+  <div class="row">
+    {% for type in car_types %}
+      <div class="col-md-8 mt-3 left">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="card-title">
+              <a href="{{ '' }}">
+                {{ car_type_types[type['car_type']][1] }}
+              </a>
+            </h2>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <h1>Trucks</h1>
+  <div class="row">
+  </div>
+
 </div>
 
 {% endblock %}
