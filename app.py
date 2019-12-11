@@ -146,7 +146,7 @@ def admin_add_post():
         return render_template('post_form.html', created=True, **kwargs)
 
 
-@app.route('/admin/cars/create')
+@app.route('/admin/cars/create', methods=['GET', 'POST'])
 def admin_add_car():
     kwargs = {
         'vehicle_status_types': VEHICLE_STATUS_TYPES,
@@ -177,7 +177,7 @@ def admin_add_car():
             VALUES
                 (
                     {car_type}, '{description}', {fuel}, '{model}', {price},
-                    '{series}', '{slug}'. {status}, {transmission}
+                    '{series}', '{slug}', {status}, {transmission}
                 );
 
         '''
@@ -195,7 +195,7 @@ def admin_add_car():
         return render_template('car_form.html', **kwargs)
 
 
-@app.route('/admin/trucks/create')
+@app.route('/admin/trucks/create', methods=['GET', 'POST'])
 def admin_add_truck():
     kwargs = {
         'vehicle_status_types': VEHICLE_STATUS_TYPES,
