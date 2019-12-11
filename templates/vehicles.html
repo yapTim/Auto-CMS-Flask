@@ -10,7 +10,7 @@
         <div class="card mb-4">
           <div class="card-body">
             <h2 class="card-title">
-              <a href="{{ '' }}">
+              <a href="{{ url_for('cars_list', car_type=type['car_type']) }}">
                 {{ car_type_types[type['car_type']][1] }}
               </a>
             </h2>

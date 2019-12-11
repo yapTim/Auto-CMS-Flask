@@ -83,6 +83,28 @@ def vehicles_list():
     return render_template('vehicles.html', car_types=car_types, **kwargs)
 
 
+@app.route('/vehicles/cars/')
+def cars_list():
+    car_type = request.args.get('car_type')
+
+    query = f'''
+        SELECT DISTINCT model FROM cars WHERE car_type = {car_type}
+    '''
+    car_models = fetch_list(get_db(), query)
+    car_models = [model['model'] for model in car_models]
+
+    query = f'''
+        SELECT id, series, price, model FROM cars WHERE car_type = {car_type}
+    '''
+    cars_list = fetch_list(get_db(), query)
+
+    cars = dict((model, []) for model in car_models)
+    for car in cars_list:
+        cars[car['model']].append(car)
+
+    return render_template('cars.html', car_models=car_models, cars=cars)
+
+
 @app.route('/admin')
 def admin_index():
     if not session.get('username', None) or not session.get('user_id', None):
