@@ -163,7 +163,21 @@ def trucks_list():
 
 @app.route('/vehicles/trucks/<id>')
 def truck_detail(id):
-    pass
+    kwargs = {
+        'size_types': SIZE_TYPES
+    }
+
+    query = f'''
+        SELECT
+            description, model, price, size, weight_category
+        FROM
+            trucks
+        WHERE
+            id = {id}
+    '''
+
+    truck = fetch_detail(get_db(), query)
+    return render_template('vehicle.html', vehicle=truck, **kwargs)
 
 
 @app.route('/admin')

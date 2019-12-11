@@ -1,13 +1,26 @@
 {% extends 'base.html' %}
 {% block body %}
 
+{% if vehicle['car_type'] %}
+  {% set back_url = url_for('cars_list', car_type=vehicle['car_type']) %}
+{% else %}
+  {%
+    set back_url = url_for(
+      'trucks_list', weight_category=vehicle['weight_category'])
+  %}
+{% endif %}
+
 <div class="container">
   <div class="row">
     <div class="col-md-8 mt-3 left">
       <div class="card mb-4">
         <div class="card-body">
           <h1 class="card-title">Model: {{ vehicle['model'] }}</h1>
-            <p>Series: {{ vehicle['series'] }}</p>
+            {% if vehicle['series'] %}
+              <p>Series: {{ vehicle['series'] }}</p>
+            {% else %}
+              <p>Size: {{ size_types[vehicle['size']][1] }}</p>
+            {% endif %}
             {% if vehicle['fuel'] %}
               <p>
                 Transmission and Fuel: {{
@@ -19,7 +32,7 @@
             {% endif %}
             <p>Price: PHP {{ '%0.2f'|format(vehicle['price']) }}</p>
             <p>Description: {{ vehicle['description'] }}</p>
-            <a href="{{ url_for('cars_list', car_type=vehicle['car_type']) }}">
+            <a href="{{ back_url }}">
               <button class="btn btn-secondary btn-sm">Back</button>
             </a>
         </div>
