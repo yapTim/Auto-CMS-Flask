@@ -4,7 +4,9 @@ from datetime import datetime
 from flask import (
     Flask, g, render_template, redirect, request, session, url_for)
 
-from db import commit_data, fetch_detail, fetch_list, init_db
+from db import (
+    commit_data, fetch_detail, fetch_list, init_db, CAR_STATUS_TYPES,
+    CAR_TYPE_TYPES, FUEL_TYPES, TRANSMISSION_TYPES)
 
 
 DATABASE = 'autocms.sqlite'
@@ -68,7 +70,7 @@ def post_detail(post_id):
 
 @app.route('/vehicles')
 def list_vehicles():
-    query = f'''
+    query = '''
         SELECT DISTINCT car_type FROM cars
     '''
     car_types = fetch_list(get_db(), query)
@@ -137,6 +139,19 @@ def admin_add_post():
 
         commit_data(get_db(), query)
         return render_template('post_form.html', created=True)
+
+
+@app.route('/admin/cars/create')
+def admin_add_car():
+    select_options = {
+        'car_status_types': CAR_STATUS_TYPES,
+        'transmission_types': TRANSMISSION_TYPES,
+        'fuel_types': FUEL_TYPES,
+        'car_type_types': CAR_TYPE_TYPES
+    }
+
+    if request.method == 'GET':
+        return render_template('car_form.html', select_options=select_options)
 
 
 @app.route('/admin/logout')
