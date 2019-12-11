@@ -19,6 +19,34 @@ CREATE TABLE posts (
     FOREIGN KEY(author_id) REFERENCES users(id)
 );
 
+CREATE TABLE cars (
+    id INTEGER PRIMARY KEY,
+    model TEXT NOT NULL,
+    slug TEXT NOT NULL,
+    description TEXT NOT NULL,
+    price REAL NOT NULL,
+    created_on TEXT DEFAULT (datetime('now')),
+    updated_on TEXT DEFAULT (datetime('now')),
+    status INTEGER DEFAULT 0,
+    series TEXT NOT NULL,
+    transmission INTEGER NOT NULL DEFAULT 0,
+    car_type INTEGER NOT NULL DEFAULT 0,
+    fuel INTEGER DEFAULT 0
+);
+
+CREATE TABLE trucks (
+    id INTEGER PRIMARY KEY,
+    model TEXT NOT NULL,
+    slug TEXT NOT NULL,
+    description TEXT NOT NULL,
+    price REAL NOT NULL,
+    created_on TEXT DEFAULT (datetime('now')),
+    updated_on TEXT DEFAULT (datetime('now')),
+    status INTEGER DEFAULT 0,
+    size INTEGER DEFAULT 0,
+    weight_category INTEGER DEFAULT 150
+);
+
 INSERT INTO
     users(email, first_name, last_name, password, username)
 VALUES
