@@ -22,6 +22,19 @@
 
   <h1>Trucks</h1>
   <div class="row">
+    {% for weight in weight_categories %}
+      <div class="col-md-8 mt-3 left">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="card-title">
+              <a href="{{ url_for('trucks_list', weight_category=category['weight_category']) }}">
+                {{ weight_category_types[weight['weight_category']][2] + ' GVWR' }}
+              </a>
+            </h2>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
   </div>
 
 </div>

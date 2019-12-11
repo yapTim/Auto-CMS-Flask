@@ -72,16 +72,19 @@ def post_detail(post_id):
 @app.route('/vehicles')
 def vehicles_list():
     kwargs = {
-        'car_type_types': CAR_TYPE_TYPES
+        'car_type_types': CAR_TYPE_TYPES,
+        'weight_categories': WEIGHT_CATEGORY_TYPES
     }
 
-    query = '''
-        SELECT DISTINCT car_type FROM cars
-    '''
+    query = 'SELECT DISTINCT car_type FROM cars'
     car_types = fetch_list(get_db(), query)
 
+    query = 'SELECT DISTINCT weight_category from trucks'
+    weight_categories = fetch_list(get_db(), query)
+
     return render_template(
-        'vehicles_index.html', car_types=car_types, **kwargs)
+        'vehicles_index.html', car_types=car_types,
+        weight_categories=weight_categories, **kwargs)
 
 
 def fetch_models(table, column, value):
@@ -115,7 +118,6 @@ def cars_list():
     car_type = request.args.get('car_type')
 
     car_models = fetch_models('cars', 'car_type', car_type)
-    print(car_models)
     cars = sort_vehicles_by_model(
         car_models, 'series', 'cars', 'car_type', car_type)
 
@@ -146,9 +148,13 @@ def car_detail(id):
 def trucks_list():
     weight_category = request.args.get('weight_category')
 
-    query = f'''
+    truck_models = fetch_models('trucks', 'weight_category', weight_category)
+    trucks = sort_vehicles_by_model(
+        truck_models, 'size', 'trucks', 'weight_category', weight_category)
 
-    '''
+    return render_template(
+        'vehicles.html' vehicle_type='Trucks', models=truck_models,
+        vehicles=trucks)
 
 
 @app.route('/vehicles/trucks/<truck_id>')
