@@ -11,6 +11,11 @@
           Car successfully created!
         </div>
         {% endif %}
+        {% if created == false %}
+        <div class="alert alert-danger" role="alert">
+          There was an Error! Please try again!
+        </div>
+        {% endif %}
         <form action="{{ url_for('admin_add_car') }}" method="POST">
 
           <div class="form-group">
