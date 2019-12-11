@@ -5,27 +5,13 @@
   <div class="col-md-8 mt-3 left">
     <div class="card mb-4">
       <div class="card-body">
-        <h3 class="card-title">Add new Car</h3>
+        <h3 class="card-title">Add new Truck</h3>
         {% if created %}
         <div class="alert alert-success" role="alert">
-          Car successfully created!
+          Truck successfully created!
         </div>
         {% endif %}
-        <form action="{{ url_for('admin_add_car') }}" method="POST">
-
-          <div class="form-group">
-            <label for="car_type">Car Type</label>
-            <select
-              class="form-control"
-              id="car_type"
-              name="car_type"
-              required
-            >
-              {% for type in car_type_types %}
-                <option value="{{ type[0] }}">{{ type[1] }}</option>
-              {% endfor %}
-            </select>
-          </div>
+        <form action="{{ url_for('admin_add_truck') }}" method="POST">
 
           <div class="form-group">
             <label for="model">Model</label>
@@ -36,6 +22,34 @@
               name="model"
               required
             />
+          </div>
+
+          <div class="form-group">
+            <label for="size">Size</label>
+            <select
+              class="form-control"
+              id="size"
+              name="size"
+              required
+            >
+              {% for size in size_types %}
+                <option value="{{ size[0] }}">{{ size[1] }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="weight_category">Weight Category</label>
+            <select
+              class="form-control"
+              id="weight_category"
+              name="weight_category"
+              required
+            >
+              {% for category in weight_category_types %}
+                <option value="{{ category[0] }}">{{ category[1] }}</option>
+              {% endfor %}
+            </select>
           </div>
 
           <div class="form-group">
@@ -83,45 +97,6 @@
             >
               {% for status in vehicle_status_types %}
                 <option value="{{ status[0] }}">{{ status[1] }}</option>
-              {% endfor %}
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="series">Series</label>
-            <input
-              type="text"
-              class="form-control"
-              id="series"
-              name="series"
-              required
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="transmission">Transmission Type</label>
-            <select
-              class="form-control"
-              id="transmission"
-              name="transmission"
-              required
-            >
-              {% for type in transmission_types %}
-                <option value="{{ type[0] }}">{{ type[1] }}</option>
-              {% endfor %}
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="fuel">Fuel Type</label>
-            <select
-              class="form-control"
-              id="fuel"
-              name="fuel"
-              required
-            >
-              {% for type in fuel_types %}
-                <option value="{{ type[0] }}">{{ type[1] }}</option>
               {% endfor %}
             </select>
           </div>

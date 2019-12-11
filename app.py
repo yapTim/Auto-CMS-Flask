@@ -6,7 +6,8 @@ from flask import (
 
 from db import (
     commit_data, fetch_detail, fetch_list, init_db, CAR_TYPE_TYPES, FUEL_TYPES,
-    POST_STATUS_TYPES, TRANSMISSION_TYPES, VEHICLE_STATUS_TYPES,)
+    POST_STATUS_TYPES, SIZE_TYPES, TRANSMISSION_TYPES, VEHICLE_STATUS_TYPES,
+    WEIGHT_CATEGORY_TYPES)
 
 
 DATABASE = 'autocms.sqlite'
@@ -156,6 +157,18 @@ def admin_add_car():
 
     if request.method == 'GET':
         return render_template('car_form.html', **kwargs)
+
+
+@app.route('/admin/trucks/create')
+def admin_add_truck():
+    kwargs = {
+        'vehicle_status_types': VEHICLE_STATUS_TYPES,
+        'size_types': SIZE_TYPES,
+        'weight_category_types': WEIGHT_CATEGORY_TYPES
+    }
+
+    if request.method == 'GET':
+        return render_template('truck_form.html', **kwargs)
 
 
 @app.route('/admin/logout')
