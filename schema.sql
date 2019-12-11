@@ -44,7 +44,7 @@ CREATE TABLE trucks (
     updated_on TEXT DEFAULT (datetime('now')),
     status INTEGER DEFAULT 0,
     size INTEGER DEFAULT 0,
-    weight_category INTEGER DEFAULT 150
+    weight_category INTEGER DEFAULT 0
 );
 
 INSERT INTO

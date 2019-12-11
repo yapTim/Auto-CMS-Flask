@@ -73,7 +73,7 @@ def post_detail(post_id):
 def vehicles_list():
     kwargs = {
         'car_type_types': CAR_TYPE_TYPES,
-        'weight_categories': WEIGHT_CATEGORY_TYPES
+        'weight_category_types': WEIGHT_CATEGORY_TYPES
     }
 
     query = 'SELECT DISTINCT car_type FROM cars'
@@ -285,6 +285,40 @@ def admin_add_truck():
         'size_types': SIZE_TYPES,
         'weight_category_types': WEIGHT_CATEGORY_TYPES
     }
+
+    if request.method == 'POST':
+        data = request.form
+
+        model = data.get('model')
+        slug = data.get('slug')
+        description = data.get('description')
+        price = data.get('price')
+        status = data.get('status')
+        size = data.get('size')
+        weight_category = data.get('weight_category')
+
+        query = f'''
+            INSERT INTO
+                trucks(
+                    description, model, price, size, slug, status,
+                    weight_category
+                )
+            VALUES
+                (
+                    '{description}', '{model}', {price}, {size}, '{slug}',
+                    {status}, {weight_category}
+                );
+
+        '''
+
+        created = True
+        try:
+            commit_data(get_db(), query)
+        except Exception as e:
+            print(e)
+            created = False
+
+        return render_template('truck_form.html', created=created, **kwargs)
 
     if request.method == 'GET':
         return render_template('truck_form.html', **kwargs)
