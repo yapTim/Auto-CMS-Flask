@@ -22,7 +22,7 @@ CREATE TABLE posts (
 CREATE TABLE cars (
     id INTEGER PRIMARY KEY,
     model TEXT NOT NULL,
-    slug TEXT NOT NULL,
+    slug TEXT NOT NULL UNIQUE,
     description TEXT NOT NULL,
     price REAL NOT NULL,
     created_on TEXT DEFAULT (datetime('now')),
@@ -37,7 +37,7 @@ CREATE TABLE cars (
 CREATE TABLE trucks (
     id INTEGER PRIMARY KEY,
     model TEXT NOT NULL,
-    slug TEXT NOT NULL,
+    slug TEXT NOT NULL UNIQUE,
     description TEXT NOT NULL,
     price REAL NOT NULL,
     created_on TEXT DEFAULT (datetime('now')),
