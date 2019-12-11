@@ -6,19 +6,63 @@ import sqlite3
 # Posts `status`
 DRAFT = 0
 PUBLISHED = 1
-STATUS_TYPES = (
+POST_STATUS_TYPES = (
     (DRAFT, 'Draft'),
     (PUBLISHED, 'Published')
+)
+
+# Cars `status`
+ACTIVE = 0
+DECOMMISSIONED = 1
+CAR_STATUS_TYPES = (
+    (ACTIVE, 'Active'),
+    (DECOMMISSIONED, 'Decommissioned')
+)
+
+# Cars `transmission`
+MANUAL = 0
+AUTOMATIC = 1
+TRANSMISSION_TYPES = (
+    (MANUAL, 'Manual'),
+    (AUTOMATIC, 'Automatic')
 )
 
 # Cars `car_type`
 SEDAN = 0
 SUV = 1
 PICKUP = 2
-CAR_TYPES = (
+CAR_TYPE_TYPES = (
     (SEDAN, 'Sedan'),
     (SUV, 'SUV'),
     (PICKUP, 'Pickup')
+)
+
+# Cars `fuel`
+GAS = 0
+DIESEL = 1
+ELECTRIC = 2
+FUEL_TYPES = (
+    (GAS, 'Gas'),
+    (DIESEL, 'Diesel'),
+    (ELECTRIC, 'Electric')
+)
+
+# Trucks `size`
+MIDSIZE = 0
+FULL_SIZE = 1
+SIZE_TYPES = (
+    (MIDSIZE, 'Midsize'),
+    (FULL_SIZE, 'Full-size')
+)
+
+# Trucks `weight_category`
+LIGHT_DUTY = 150
+MEDIUM_DUTY = 250
+HEAVY_DUTY = 350
+WEIGHT_CATEGORY_TYPES = (
+    (LIGHT_DUTY, 'Light-Duty'),
+    (MEDIUM_DUTY, 'Medium-Duty'),
+    (HEAVY_DUTY, 'Heavy-Duty')
 )
 
 
