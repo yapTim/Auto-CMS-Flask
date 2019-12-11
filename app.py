@@ -5,8 +5,8 @@ from flask import (
     Flask, g, render_template, redirect, request, session, url_for)
 
 from db import (
-    commit_data, fetch_detail, fetch_list, init_db, CAR_STATUS_TYPES,
-    CAR_TYPE_TYPES, FUEL_TYPES, POST_STATUS_TYPES, TRANSMISSION_TYPES)
+    commit_data, fetch_detail, fetch_list, init_db, CAR_TYPE_TYPES, FUEL_TYPES,
+    POST_STATUS_TYPES, TRANSMISSION_TYPES, VEHICLE_STATUS_TYPES,)
 
 
 DATABASE = 'autocms.sqlite'
@@ -148,7 +148,7 @@ def admin_add_post():
 @app.route('/admin/cars/create')
 def admin_add_car():
     kwargs = {
-        'car_status_types': CAR_STATUS_TYPES,
+        'vehicle_status_types': VEHICLE_STATUS_TYPES,
         'transmission_types': TRANSMISSION_TYPES,
         'fuel_types': FUEL_TYPES,
         'car_type_types': CAR_TYPE_TYPES

@@ -14,7 +14,7 @@ POST_STATUS_TYPES = (
 # Cars `status`
 ACTIVE = 0
 DECOMMISSIONED = 1
-CAR_STATUS_TYPES = (
+VEHICLE_STATUS_TYPES = (
     (ACTIVE, 'Active'),
     (DECOMMISSIONED, 'Decommissioned')
 )
