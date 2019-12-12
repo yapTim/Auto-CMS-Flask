@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 {% block body %}
 
+{% if car %}
+  {% set car = car %}
+{% else %}
+  {% set car = None %}
+{% endif %}
+
 <div class="container">
   <div class="col-md-8 mt-3 left">
     <div class="card mb-4">
@@ -24,6 +30,9 @@
               class="form-control"
               id="car_type"
               name="car_type"
+              {% if car %}
+                value="{{ car['car_type'] }}"
+              {% endif %}
               required
             >
               {% for type in car_type_types %}
@@ -39,6 +48,9 @@
               class="form-control"
               id="model"
               name="model"
+              {% if car %}
+                value="{{ car['model'] }}"
+              {% endif %}
               required
             />
           </div>
@@ -50,6 +62,9 @@
               class="form-control"
               id="series"
               name="series"
+              {% if car %}
+                value="{{ car['series'] }}"
+              {% endif %}
               required
             />
           </div>
@@ -61,6 +76,9 @@
               class="form-control"
               id="slug"
               name="slug"
+              {% if car %}
+                value="{{ car['slug'] }}"
+              {% endif %}
               required
             />
           </div>
@@ -73,7 +91,7 @@
               rows="7"
               name="description"
               required
-            ></textarea>
+            >{% if car['description'] %}{{ car['description'] }}{% endif %}</textarea>
           </div>
 
           <div class="form-group">
@@ -85,6 +103,9 @@
               name="price"
               step="0.01"
               min="0"
+              {% if car %}
+                value="{{ car['price'] }}"
+              {% endif %}
               required
             />
           </div>
@@ -95,6 +116,9 @@
               class="form-control"
               id="status"
               name="status"
+              {% if car %}
+                value="{{ car['status'] }}"
+              {% endif %}
               required
             >
               {% for status in vehicle_status_types %}
@@ -109,6 +133,9 @@
               class="form-control"
               id="transmission"
               name="transmission"
+              {% if car %}
+                value="{{ car['transmission'] }}"
+              {% endif %}
               required
             >
               {% for type in transmission_types %}
@@ -123,6 +150,9 @@
               class="form-control"
               id="fuel"
               name="fuel"
+              {% if car %}
+                value="{{ car['fuel'] }}"
+              {% endif %}
               required
             >
               {% for type in fuel_types %}
@@ -131,7 +161,7 @@
             </select>
           </div>
 
-          <button type="submit" class="btn btn-success float-right">Add</button>
+          <button type="submit" class="btn btn-success float-right">{{ action }}</button>
 
         </form>
         <a href="{{ url_for('admin_index') }}">

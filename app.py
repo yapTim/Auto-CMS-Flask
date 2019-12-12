@@ -308,7 +308,31 @@ def admin_add_car():
         return render_template('car_form.html', created=created, **kwargs)
 
     if request.method == 'GET':
-        return render_template('car_form.html', **kwargs)
+        return render_template('car_form.html', action='Add', **kwargs)
+
+
+@app.route('/admin/cars/<id>')
+def admin_get_car(id):
+    kwargs = {
+        'vehicle_status_types': VEHICLE_STATUS_TYPES,
+        'transmission_types': TRANSMISSION_TYPES,
+        'fuel_types': FUEL_TYPES,
+        'car_type_types': CAR_TYPE_TYPES
+    }
+
+    if request.method == 'GET':
+        query = f'''
+            SELECT car_type, model, slug, description, price, status,
+                   transmission, fuel, series
+            FROM
+                cars
+            WHERE
+                id = {id}
+        '''
+
+        car = fetch_detail(get_db(), query)
+        return render_template(
+            'car_form.html', car=car, action='Update', **kwargs)
 
 
 @app.route('/admin/trucks/create', methods=['GET', 'POST'])

@@ -43,7 +43,9 @@
             </div>
           </div>
           {% for car in cars %}
-            <a href="" class="instance">{{ car['model'] + ' ' + car['series'] }}</a>
+            <a href="{{ url_for('admin_get_car', id=car['id']) }}" class="instance">
+              {{ car['model'] + ' ' + car['series'] }}
+            </a>
           {% endfor %}
         </div>
       </div>
