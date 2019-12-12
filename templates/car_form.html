@@ -9,6 +9,12 @@
   {% set action_redirect = url_for('admin_add_car') %}
 {% endif %}
 
+<style>
+  .option-button {
+    margin-left: 15px;
+  }
+</style>
+
 <div class="container">
   <div class="col-md-8 mt-3 left">
     <div class="card mb-4">
@@ -163,9 +169,14 @@
             </select>
           </div>
 
-          <button type="submit" class="btn btn-success float-right">{{ action }}</button>
+          <button type="submit" class="btn btn-success float-right option-button">{{ action }}</button>
 
         </form>
+        {% if car %}
+          <form action="{{ url_for('admin_delete_car', id=car['id']) }}" method="POST">
+            <button type="submit" class="btn btn-danger float-right option-button">Delete</button>
+          </form>
+        {% endif %}
         <a href="{{ url_for('admin_index') }}">
           <button class="btn btn-secondary">Back</button>
         </a>

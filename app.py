@@ -234,6 +234,14 @@ def admin_login():
         return redirect(url_for('admin_index'))
 
 
+def delete_query(table, id):
+    query = f'''
+        DELETE FROM {table} WHERE id = {id}
+    '''
+
+    commit_data(get_db(), query)
+
+
 @app.route('/admin/posts/create', methods=['GET', 'POST'])
 def admin_add_post():
     kwargs = {
@@ -261,6 +269,12 @@ def admin_add_post():
 
         commit_data(get_db(), query)
         return render_template('post_form.html', created=True, **kwargs)
+
+
+@app.route('/admin/posts/<id>/delete', methods=['POST'])
+def admin_delete_post(id):
+    delete_query('posts', id)
+    return redirect(url_for('admin_index'))
 
 
 @app.route('/admin/cars/create', methods=['GET', 'POST'])
@@ -368,6 +382,12 @@ def admin_update_car(id):
         url_for('admin_get_car', id=id))
 
 
+@app.route('/admin/cars/<id>/delete', methods=['POST'])
+def admin_delete_car(id):
+    delete_query('cars', id)
+    return redirect(url_for('admin_index'))
+
+
 @app.route('/admin/trucks/create', methods=['GET', 'POST'])
 def admin_add_truck():
     kwargs = {
@@ -462,6 +482,12 @@ def admin_update_truck(id):
 
     commit_data(get_db(), query)
     return redirect(url_for('admin_get_truck', id=id))
+
+
+@app.route('/admin/trucks/<id>/delete', methods=['POST'])
+def admin_delete_truck(id):
+    delete_query('trucks', id)
+    return redirect(url_for('admin_index'))
 
 
 @app.route('/admin/logout')
