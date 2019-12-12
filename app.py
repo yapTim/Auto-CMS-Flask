@@ -249,7 +249,7 @@ def admin_add_post():
     }
 
     if request.method == 'GET':
-        return render_template('post_form.html', **kwargs)
+        return render_template('post_form.html', action='Add', **kwargs)
 
     if request.method == 'POST':
         data = request.form
@@ -268,7 +268,51 @@ def admin_add_post():
         '''
 
         commit_data(get_db(), query)
-        return render_template('post_form.html', created=True, **kwargs)
+        return render_template(
+            'post_form.html', action='Add', created=True, **kwargs)
+
+
+@app.route('/admin/posts/<id>')
+def admin_get_post(id):
+    kwargs = {
+        'post_status_types': POST_STATUS_TYPES
+    }
+
+    query = f'''
+        SELECT
+            id, title, slug, content, status
+        FROM
+            posts
+        WHERE
+            id = {id}
+    '''
+
+    post = fetch_detail(get_db(), query)
+    return render_template(
+        'post_form.html', action='Update', post=post, **kwargs)
+
+
+@app.route('/admin/posts/<id>/update', methods=['POST'])
+def admin_update_post(id):
+    data = request.form
+
+    title = data.get('title').strip()
+    slug = data.get('slug').strip()
+    content = data.get('content').strip()
+    status = int(data.get('status'))
+
+    query = f'''
+        UPDATE
+            posts
+        SET
+            title = '{title}', slug = '{slug}', content = '{content}',
+            status={status}
+        WHERE
+            id = {id}
+    '''
+
+    commit_data(get_db(), query)
+    return redirect(url_for('admin_get_post', id=id))
 
 
 @app.route('/admin/posts/<id>/delete', methods=['POST'])

@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 {% block body %}
 
+{% if post %}
+  {% set post = post %}
+  {% set action_redirect = url_for('admin_update_post', id=post['id']) %}
+
+{% else %}
+  {% set post = None %}
+  {% set action_redirect = url_for('admin_add_post') %}
+{% endif %}
+
 <style>
   .option-button {
     margin-left: 15px;
@@ -17,7 +26,7 @@
           Post successfully created!
         </div>
         {% endif %}
-        <form action="{{ url_for('admin_add_post') }}" method="POST">
+        <form action="{{ action_redirect }}" method="POST">
 
           <div class="form-group">
             <label for="title">Title</label>
@@ -26,6 +35,9 @@
               class="form-control"
               id="title"
               name="title"
+              {% if post %}
+                value="{{ post['title'] }}"
+              {% endif %}
               required
             />
           </div>
@@ -37,6 +49,9 @@
               class="form-control"
               id="slug"
               name="slug"
+              {% if post %}
+                value="{{ post['slug'] }}"
+              {% endif %}
               required/>
           </div>
 
@@ -48,7 +63,7 @@
               rows="7"
               name="content"
               required
-            ></textarea>
+            >{% if post %}{{ post['content'] }}{% endif %}</textarea>
           </div>
 
           <div class="form-group">
@@ -57,6 +72,9 @@
               class="form-control"
               id="status"
               name="status"
+              {% if post %}
+                value="{{ post['status'] }}"
+              {% endif %}
               required
             >
               {% for status in post_status_types %}
@@ -65,7 +83,7 @@
             </select>
           </div>
 
-          <button type="submit" class="btn btn-success float-right option-button">Add</button>
+          <button type="submit" class="btn btn-success float-right option-button">{{ action }}</button>
 
         </form>
         {% if post %}
