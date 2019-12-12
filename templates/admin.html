@@ -65,7 +65,9 @@
             </div>
           </div>
           {% for truck in trucks %}
-            <a href="" class="instance">{{ truck['model'] + ' ' + size_types[truck['size']][1] }}</a>
+            <a href="{{ url_for('admin_get_truck', id=truck['id']) }}" class="instance">
+              {{ truck['model'] + ' ' + size_types[truck['size']][1] }}
+            </a>
           {% endfor %}
         </div>
       </div>

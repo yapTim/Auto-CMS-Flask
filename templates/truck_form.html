@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 {% block body %}
 
+{% if truck %}
+  {% set truck = truck %}
+  {% set action_redirect = url_for('admin_update_truck', id=truck['id']) %}
+{% else %}
+  {% set truck = None %}
+  {% set action_redirect = url_for('admin_add_truck') %}
+{% endif %}
 <div class="container">
   <div class="col-md-8 mt-3 left">
     <div class="card mb-4">
@@ -11,7 +18,7 @@
           Truck successfully created!
         </div>
         {% endif %}
-        <form action="{{ url_for('admin_add_truck') }}" method="POST">
+        <form action="{{ action_redirect }}" method="POST">
 
           <div class="form-group">
             <label for="model">Model</label>
@@ -20,6 +27,9 @@
               class="form-control"
               id="model"
               name="model"
+              {% if truck %}
+                value="{{ truck['model'] }}"
+              {% endif %}
               required
             />
           </div>
@@ -30,6 +40,9 @@
               class="form-control"
               id="size"
               name="size"
+              {% if truck %}
+                value="{{ truck['size'] }}"
+              {% endif %}
               required
             >
               {% for size in size_types %}
@@ -44,6 +57,9 @@
               class="form-control"
               id="weight_category"
               name="weight_category"
+              {% if truck %}
+                value="{{ truck['weight_category'] }}"
+              {% endif %}
               required
             >
               {% for category in weight_category_types %}
@@ -59,6 +75,9 @@
               class="form-control"
               id="slug"
               name="slug"
+              {% if truck %}
+                value="{{ truck['slug'] }}"
+              {% endif %}
               required
             />
           </div>
@@ -71,7 +90,7 @@
               rows="7"
               name="description"
               required
-            ></textarea>
+            >{% if truck %}{{ truck['description'] }}{% endif %}</textarea>
           </div>
 
           <div class="form-group">
@@ -83,6 +102,9 @@
               name="price"
               step="0.01"
               min="0"
+              {% if truck %}
+                value="{{ truck['price'] }}"
+              {% endif %}
               required
             />
           </div>
@@ -93,6 +115,9 @@
               class="form-control"
               id="status"
               name="status"
+              {% if truck %}
+                value="{{ truck['status'] }}"
+              {% endif %}
               required
             >
               {% for status in vehicle_status_types %}
@@ -101,7 +126,7 @@
             </select>
           </div>
 
-          <button type="submit" class="btn btn-success float-right">Add</button>
+          <button type="submit" class="btn btn-success float-right">{{ action }}</button>
 
         </form>
         <a href="{{ url_for('admin_index') }}">

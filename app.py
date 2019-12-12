@@ -306,7 +306,8 @@ def admin_add_car():
             print(e)
             created = False
 
-        return render_template('car_form.html', created=created, **kwargs)
+        return render_template(
+            'car_form.html', created=created, action='Add', **kwargs)
 
     if request.method == 'GET':
         return render_template('car_form.html', action='Add', **kwargs)
@@ -407,10 +408,60 @@ def admin_add_truck():
             print(e)
             created = False
 
-        return render_template('truck_form.html', created=created, **kwargs)
+        return render_template(
+            'truck_form.html', created=created, action='Add', **kwargs)
 
     if request.method == 'GET':
-        return render_template('truck_form.html', **kwargs)
+        return render_template('truck_form.html', action='Add', **kwargs)
+
+
+@app.route('/admin/trucks/<id>')
+def admin_get_truck(id):
+    kwargs = {
+        'vehicle_status_types': VEHICLE_STATUS_TYPES,
+        'size_types': SIZE_TYPES,
+        'weight_category_types': WEIGHT_CATEGORY_TYPES
+    }
+
+    query = f'''
+        SELECT
+            id, model, slug, description, price, status, size, weight_category
+        FROM
+            trucks
+        WHERE
+            id = {id}
+    '''
+
+    truck = fetch_detail(get_db(), query)
+    return render_template(
+        'truck_form.html', truck=truck, action='Update', **kwargs)
+
+
+@app.route('/admin/trucks/<id>/update', methods=['POST'])
+def admin_update_truck(id):
+    data = request.form
+
+    model = data.get('model')
+    slug = data.get('slug')
+    description = data.get('description')
+    price = data.get('price')
+    status = data.get('status')
+    size = data.get('size')
+    weight_category = data.get('weight_category')
+
+    query = f'''
+        UPDATE
+            trucks
+        SET
+            description = '{description}', model = '{model}', price = {price},
+            size = {size}, slug = '{slug}', status = {status},
+            weight_category = {weight_category}
+        WHERE
+            id = {id}
+    '''
+
+    commit_data(get_db(), query)
+    return redirect(url_for('admin_get_truck', id=id))
 
 
 @app.route('/admin/logout')
