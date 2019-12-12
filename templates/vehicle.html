@@ -1,13 +1,10 @@
 {% extends 'base.html' %}
 {% block body %}
 
-{% if vehicle['car_type'] %}
+{% if vehicle['car_type'] != None %}
   {% set back_url = url_for('cars_list', car_type=vehicle['car_type']) %}
 {% else %}
-  {%
-    set back_url = url_for(
-      'trucks_list', weight_category=vehicle['weight_category'])
-  %}
+  {% set back_url = url_for('trucks_list', weight_category=vehicle['weight_category']) %}
 {% endif %}
 
 <div class="container">

@@ -116,7 +116,7 @@ def sort_vehicles_by_model(models, sub_category, table, column, value):
 @app.route('/vehicles/cars/')
 def cars_list():
     car_type = request.args.get('car_type')
-
+    print(car_type)
     car_models = fetch_models('cars', 'car_type', car_type)
     cars = sort_vehicles_by_model(
         car_models, 'series', 'cars', 'car_type', car_type)
@@ -141,6 +141,7 @@ def car_detail(id):
             id = {id}
     '''
     car = fetch_detail(get_db(), query)
+    print(car['car_type'])
     return render_template('vehicle.html', vehicle=car, **kwargs)
 
 
@@ -320,19 +321,50 @@ def admin_get_car(id):
         'car_type_types': CAR_TYPE_TYPES
     }
 
-    if request.method == 'GET':
-        query = f'''
-            SELECT car_type, model, slug, description, price, status,
-                   transmission, fuel, series
-            FROM
-                cars
-            WHERE
-                id = {id}
-        '''
+    query = f'''
+        SELECT id, car_type, model, slug, description, price, status,
+               transmission, fuel, series
+        FROM
+            cars
+        WHERE
+            id = {id}
+    '''
 
-        car = fetch_detail(get_db(), query)
-        return render_template(
-            'car_form.html', car=car, action='Update', **kwargs)
+    car = fetch_detail(get_db(), query)
+    return render_template(
+        'car_form.html', car=car, action='Update', **kwargs)
+
+
+@app.route('/admin/cars/<id>/update', methods=['POST'])
+def admin_update_car(id):
+    data = request.form
+
+    model = data.get('model')
+    slug = data.get('slug')
+    description = data.get('description')
+    price = data.get('price')
+    status = data.get('status')
+    car_type = data.get('car_type')
+    series = data.get('series')
+    transmission = data.get('transmission')
+    fuel = data.get('fuel')
+
+    query = f'''
+        UPDATE
+            cars
+        SET
+            car_type = {car_type}, description = '{description}',
+            fuel = {fuel}, model = '{model}',
+            price = {price}, series = '{series}', slug = '{slug}',
+            status = {status}, transmission = '{transmission}'
+        WHERE
+            id = {id}
+
+    '''
+
+    commit_data(get_db(), query)
+    return redirect(
+        url_for('admin_get_car', id=id))
 
 
 @app.route('/admin/trucks/create', methods=['GET', 'POST'])

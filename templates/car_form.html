@@ -3,8 +3,10 @@
 
 {% if car %}
   {% set car = car %}
+  {% set action_redirect = url_for('admin_update_car', id=car['id']) %}
 {% else %}
   {% set car = None %}
+  {% set action_redirect = url_for('admin_add_car') %}
 {% endif %}
 
 <div class="container">
@@ -22,7 +24,7 @@
           There was an Error! Please try again!
         </div>
         {% endif %}
-        <form action="{{ url_for('admin_add_car') }}" method="POST">
+        <form action="{{ action_redirect }}" method="POST">
 
           <div class="form-group">
             <label for="car_type">Car Type</label>
