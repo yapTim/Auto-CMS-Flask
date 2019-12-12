@@ -44,6 +44,17 @@
           </div>
 
           <div class="form-group">
+            <label for="series">Series</label>
+            <input
+              type="text"
+              class="form-control"
+              id="series"
+              name="series"
+              required
+            />
+          </div>
+
+          <div class="form-group">
             <label for="slug">Slug</label>
             <input
               type="text"
@@ -90,17 +101,6 @@
                 <option value="{{ status[0] }}">{{ status[1] }}</option>
               {% endfor %}
             </select>
-          </div>
-
-          <div class="form-group">
-            <label for="series">Series</label>
-            <input
-              type="text"
-              class="form-control"
-              id="series"
-              name="series"
-              required
-            />
           </div>
 
           <div class="form-group">

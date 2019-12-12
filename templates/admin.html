@@ -10,7 +10,6 @@
       </a>
     </div>
   </div>
-
   <div class="row">
     <div class="col-md-8 mt-3 left">
       <div class="card mb-4">
@@ -23,9 +22,9 @@
               </a>
             </div>
           </div>
-          <a href="#" class="instance">My First Post!</a>
-          <a href="#" class="instance">My First Post!</a>
-          <a href="#" class="instance">My First Post!</a>
+          {% for post in posts %}
+            <a href="" class="instance">{{ post['title'] }}</a>
+          {% endfor %}
         </div>
       </div>
     </div>
@@ -43,9 +42,9 @@
               </a>
             </div>
           </div>
-          <a href="#" class="instance">Car</a>
-          <a href="#" class="instance">Car</a>
-          <a href="#" class="instance">Car</a>
+          {% for car in cars %}
+            <a href="" class="instance">{{ car['model'] + ' ' + car['series'] }}</a>
+          {% endfor %}
         </div>
       </div>
     </div>
@@ -63,9 +62,9 @@
               </a>
             </div>
           </div>
-          <a href="#" class="instance">Truck</a>
-          <a href="#" class="instance">Truck</a>
-          <a href="#" class="instance">Truck</a>
+          {% for truck in trucks %}
+            <a href="" class="instance">{{ truck['model'] + ' ' + size_types[truck['size']][1] }}</a>
+          {% endfor %}
         </div>
       </div>
     </div>

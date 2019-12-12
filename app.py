@@ -184,7 +184,22 @@ def truck_detail(id):
 def admin_index():
     if not session.get('username', None) or not session.get('user_id', None):
         return redirect(url_for('admin_login'))
-    return render_template('admin.html')
+
+    kwargs = {
+        'size_types': SIZE_TYPES
+    }
+
+    query = 'SELECT id, title FROM posts'
+    posts = fetch_list(get_db(), query)
+
+    query = 'SELECT id, model, series FROM cars'
+    cars = fetch_list(get_db(), query)
+
+    query = 'SELECT id, model, size FROM trucks'
+    trucks = fetch_list(get_db(), query)
+
+    return render_template(
+        'admin.html', posts=posts, cars=cars, trucks=trucks, **kwargs)
 
 
 @app.route('/admin/login', methods=['GET', 'POST'])
