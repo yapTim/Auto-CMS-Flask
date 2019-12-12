@@ -7,8 +7,14 @@
   {% set url_name = 'truck_detail' %}
 {% endif %}
 
-<div class="container">
-  <h1>{{ vehicle_type }}</h1>
+<div class="container"><div class="row">
+    <h1 class="col-md-8">{{ vehicle_type }}</h1>
+    <div class="col-md-4">
+      <a href="{{ url_for('admin_index') }}">
+        <button class="btn btn-secondary btn-small float right">Back</button>
+      </a>
+    </div>
+  </div>
   {% for model in models %}
     <div class="row">
       <div class="col-md-8 mt-3 left">
@@ -18,15 +24,15 @@
             {% for vehicle in vehicles[model] %}
               <a href="{{ url_for(url_name, id=vehicle['id']) }}">
                 {% if vehicle_type == 'Cars' %}
-                  <h6>{{ vehicle['series'] }}</h6>
+                  <h5>{{ vehicle['series'] }}</h5>
                 {% else %}
-                  <h6>
+                  <h5>
                     {{
                       size_types[vehicle['size']][1] +
                       ' ' +
                       weight_category_types[request.args.get('weight_category')|int][2]
                     }}
-                  </h6>
+                  </h5>
                 {% endif %}
               </a>
               <p>PHP {{ '%0.2f'|format(vehicle['price']) }}</p>
